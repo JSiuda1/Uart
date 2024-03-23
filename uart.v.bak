@@ -1,0 +1,5 @@
+module (input button_1, button_2, output led);
+
+	assign led = button_1 & button_2
+
+endmodule 

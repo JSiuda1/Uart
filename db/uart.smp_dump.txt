@@ -1,0 +1,5 @@
+
+State Machine - |uart|tx_state
+Name tx_state.TX_START 
+tx_state.TX_IDLE 0 
+tx_state.TX_START 1 

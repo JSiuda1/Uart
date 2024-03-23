@@ -1,0 +1,13 @@
+|uart
+clk => tx_state[0].CLK
+clk => tx_state[1].CLK
+clk => output_tx~reg0.CLK
+clk => led[0]~reg0.CLK
+clk => led[1]~reg0.CLK
+data_ready => tx_state.OUTPUTSELECT
+data_ready => tx_state.OUTPUTSELECT
+output_tx <= output_tx~reg0.DB_MAX_OUTPUT_PORT_TYPE
+led[0] <= led[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+led[1] <= led[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
