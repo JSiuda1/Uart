@@ -2,11 +2,10 @@ module uart(
 	input clk,
 //	input [7:0] data_byte
 	input data_ready,
-	output reg output_tx,
-	output reg [1:0] led
+	output reg output_tx
 );
 	// Temporary
-	parameter [7:0] data_byte = 65;  // A
+	parameter [7:0] data_byte = 49;  // 1 -> 0x31
 
 	// uart TX states
 	parameter TX_IDLE = 2'b00;
@@ -17,19 +16,18 @@ module uart(
 	// uart parameters
 	parameter baudrate = 115200;
 	
-	// uystem parameters
-	parameter clk_freq = 10000000;  // TBD set correct clock freq
+	// system parameters
+	parameter clk_freq = 10000000;
 	
 	// uart variables
 	parameter clks_per_byte = clk_freq / baudrate;
 	reg [1:0] tx_state = TX_IDLE;
-	reg [7:0] clk_count = 0;
-	reg tx_bit_index = 0;
+	reg [11:0] clk_count = 0;
+	reg [3:0] tx_bit_index = 0;
 	
 	// always on positive clock edge
 	always @(posedge clk)
 	begin
-		led <= ~tx_state;
 		case (tx_state)
 			TX_IDLE:
 			begin
@@ -64,18 +62,16 @@ module uart(
 					end
 				else
 					begin
-					clk_count <= 0;
-					if (tx_bit_index < 7)
-						begin
+						clk_count <= 0;
 						tx_bit_index <= tx_bit_index + 1;
-						end
-					else
-						begin
+					end
+					
+				if (tx_bit_index > 7)
+					begin
 						tx_bit_index <= 0;
 						tx_state <= TX_END;
-						end
 					end
-			end
+				end
 			
 			TX_END:
 			begin
@@ -86,8 +82,13 @@ module uart(
 					end
 				else 
 					begin
-					clk_count <= 0;
-					tx_state <= TX_IDLE;
+					// Temporary debouncing
+					clk_count <= clk_count + 1;
+					if (clk_count > 4000)
+						begin
+							clk_count <= 0;
+							tx_state <= TX_IDLE;
+						end
 					end
 			end
 		endcase

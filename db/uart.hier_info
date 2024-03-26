@@ -1,7 +1,8 @@
 |uart
-clk => tx_bit_index.CLK
-clk => tx_state[0].CLK
-clk => tx_state[1].CLK
+clk => tx_bit_index[0].CLK
+clk => tx_bit_index[1].CLK
+clk => tx_bit_index[2].CLK
+clk => tx_bit_index[3].CLK
 clk => clk_count[0].CLK
 clk => clk_count[1].CLK
 clk => clk_count[2].CLK
@@ -10,9 +11,16 @@ clk => clk_count[4].CLK
 clk => clk_count[5].CLK
 clk => clk_count[6].CLK
 clk => clk_count[7].CLK
+clk => clk_count[8].CLK
+clk => clk_count[9].CLK
+clk => clk_count[10].CLK
+clk => clk_count[11].CLK
 clk => output_tx~reg0.CLK
-clk => led[0]~reg0.CLK
-clk => led[1]~reg0.CLK
+clk => tx_state~5.DATAIN
+data_ready => clk_count.OUTPUTSELECT
+data_ready => clk_count.OUTPUTSELECT
+data_ready => clk_count.OUTPUTSELECT
+data_ready => clk_count.OUTPUTSELECT
 data_ready => clk_count.OUTPUTSELECT
 data_ready => clk_count.OUTPUTSELECT
 data_ready => clk_count.OUTPUTSELECT
@@ -23,8 +31,8 @@ data_ready => clk_count.OUTPUTSELECT
 data_ready => clk_count.OUTPUTSELECT
 data_ready => tx_state.OUTPUTSELECT
 data_ready => tx_state.OUTPUTSELECT
-output_tx << output_tx~reg0.DB_MAX_OUTPUT_PORT_TYPE
-led[0] << led[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-led[1] << led[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+data_ready => tx_state.OUTPUTSELECT
+data_ready => tx_state.OUTPUTSELECT
+output_tx <= output_tx~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 

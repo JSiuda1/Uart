@@ -1,5 +1,5 @@
 Analysis & Synthesis report for uart
-Sun Mar 24 11:58:10 2024
+Tue Mar 26 20:46:27 2024
 Quartus Prime Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
 
 
@@ -13,12 +13,14 @@ Quartus Prime Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. General Register Statistics
-  9. Multiplexer Restructuring Statistics (Restructuring Performed)
- 10. Parameter Settings for User Entity Instance: Top-level Entity: |uart
- 11. Post-Synthesis Netlist Statistics for Top Partition
- 12. Elapsed Time Per Partition
- 13. Analysis & Synthesis Messages
+  8. State Machine - |uart|tx_state
+  9. Registers Removed During Synthesis
+ 10. General Register Statistics
+ 11. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 12. Parameter Settings for User Entity Instance: Top-level Entity: |uart
+ 13. Post-Synthesis Netlist Statistics for Top Partition
+ 14. Elapsed Time Per Partition
+ 15. Analysis & Synthesis Messages
 
 
 
@@ -45,16 +47,16 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun Mar 24 11:58:10 2024          ;
+; Analysis & Synthesis Status        ; Successful - Tue Mar 26 20:46:27 2024          ;
 ; Quartus Prime Version              ; 23.1std.0 Build 991 11/28/2023 SC Lite Edition ;
 ; Revision Name                      ; uart                                           ;
 ; Top-level Entity Name              ; uart                                           ;
 ; Family                             ; MAX 10                                         ;
-; Total logic elements               ; 21                                             ;
-;     Total combinational functions  ; 21                                             ;
-;     Dedicated logic registers      ; 14                                             ;
-; Total registers                    ; 14                                             ;
-; Total pins                         ; 5                                              ;
+; Total logic elements               ; 41                                             ;
+;     Total combinational functions  ; 41                                             ;
+;     Dedicated logic registers      ; 21                                             ;
+; Total registers                    ; 21                                             ;
+; Total pins                         ; 3                                              ;
 ; Total virtual pins                 ; 0                                              ;
 ; Total memory bits                  ; 0                                              ;
 ; Embedded Multiplier 9-bit elements ; 0                                              ;
@@ -182,30 +184,30 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+-----------+
 ; Resource                                    ; Usage     ;
 +---------------------------------------------+-----------+
-; Estimated Total logic elements              ; 21        ;
+; Estimated Total logic elements              ; 41        ;
 ;                                             ;           ;
-; Total combinational functions               ; 21        ;
+; Total combinational functions               ; 41        ;
 ; Logic element usage by number of LUT inputs ;           ;
-;     -- 4 input functions                    ; 6         ;
-;     -- 3 input functions                    ; 3         ;
-;     -- <=2 input functions                  ; 12        ;
+;     -- 4 input functions                    ; 18        ;
+;     -- 3 input functions                    ; 5         ;
+;     -- <=2 input functions                  ; 18        ;
 ;                                             ;           ;
 ; Logic elements by mode                      ;           ;
-;     -- normal mode                          ; 14        ;
-;     -- arithmetic mode                      ; 7         ;
+;     -- normal mode                          ; 30        ;
+;     -- arithmetic mode                      ; 11        ;
 ;                                             ;           ;
-; Total registers                             ; 14        ;
-;     -- Dedicated logic registers            ; 14        ;
+; Total registers                             ; 21        ;
+;     -- Dedicated logic registers            ; 21        ;
 ;     -- I/O registers                        ; 0         ;
 ;                                             ;           ;
-; I/O pins                                    ; 5         ;
+; I/O pins                                    ; 3         ;
 ;                                             ;           ;
 ; Embedded Multiplier 9-bit elements          ; 0         ;
 ;                                             ;           ;
 ; Maximum fan-out node                        ; clk~input ;
-; Maximum fan-out                             ; 14        ;
-; Total fan-out                               ; 106       ;
-; Average fan-out                             ; 2.36      ;
+; Maximum fan-out                             ; 21        ;
+; Total fan-out                               ; 195       ;
+; Average fan-out                             ; 2.87      ;
 +---------------------------------------------+-----------+
 
 
@@ -214,9 +216,33 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------+-------------+--------------+
 ; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name ; Entity Name ; Library Name ;
 +----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------+-------------+--------------+
-; |uart                      ; 21 (21)             ; 14 (14)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 5    ; 0            ; 0          ; |uart               ; uart        ; work         ;
+; |uart                      ; 41 (41)             ; 21 (21)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 3    ; 0            ; 0          ; |uart               ; uart        ; work         ;
 +----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------+-------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++-----------------------------------------------------------------------------------------------+
+; State Machine - |uart|tx_state                                                                ;
++-------------------+-----------------+------------------+-------------------+------------------+
+; Name              ; tx_state.TX_END ; tx_state.TX_DATA ; tx_state.TX_START ; tx_state.TX_IDLE ;
++-------------------+-----------------+------------------+-------------------+------------------+
+; tx_state.TX_IDLE  ; 0               ; 0                ; 0                 ; 0                ;
+; tx_state.TX_START ; 0               ; 0                ; 1                 ; 1                ;
+; tx_state.TX_DATA  ; 0               ; 1                ; 0                 ; 1                ;
+; tx_state.TX_END   ; 1               ; 0                ; 0                 ; 1                ;
++-------------------+-----------------+------------------+-------------------+------------------+
+
+
++------------------------------------------------------------+
+; Registers Removed During Synthesis                         ;
++---------------------------------------+--------------------+
+; Register name                         ; Reason for Removal ;
++---------------------------------------+--------------------+
+; tx_state~6                            ; Lost fanout        ;
+; tx_state~7                            ; Lost fanout        ;
+; Total Number of Removed Registers = 2 ;                    ;
++---------------------------------------+--------------------+
 
 
 +------------------------------------------------------+
@@ -224,12 +250,12 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 14    ;
-; Number of registers using Synchronous Clear  ; 8     ;
+; Total registers                              ; 21    ;
+; Number of registers using Synchronous Clear  ; 12    ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 8     ;
+; Number of registers using Clock Enable       ; 15    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -239,7 +265,9 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
-; 4:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |uart|clk_count[7]         ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |uart|tx_bit_index[0]      ;
+; 6:1                ; 12 bits   ; 48 LEs        ; 12 LEs               ; 36 LEs                 ; Yes        ; |uart|clk_count[11]        ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 12 LEs               ; 8 LEs                  ; No         ; |uart|Selector16           ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
 
 
@@ -248,7 +276,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------+----------+------------------------------------------+
 ; Parameter Name ; Value    ; Type                                     ;
 +----------------+----------+------------------------------------------+
-; data_byte      ; 01000001 ; Unsigned Binary                          ;
+; data_byte      ; 00110001 ; Unsigned Binary                          ;
 ; TX_IDLE        ; 00       ; Unsigned Binary                          ;
 ; TX_START       ; 01       ; Unsigned Binary                          ;
 ; TX_DATA        ; 10       ; Unsigned Binary                          ;
@@ -265,21 +293,22 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 5                           ;
-; cycloneiii_ff         ; 14                          ;
-;     ENA SCLR          ; 8                           ;
+; boundary_port         ; 3                           ;
+; cycloneiii_ff         ; 21                          ;
+;     ENA               ; 3                           ;
+;     ENA SCLR          ; 12                          ;
 ;     plain             ; 6                           ;
-; cycloneiii_lcell_comb ; 21                          ;
-;     arith             ; 7                           ;
-;         2 data inputs ; 7                           ;
-;     normal            ; 14                          ;
-;         1 data inputs ; 3                           ;
-;         2 data inputs ; 2                           ;
-;         3 data inputs ; 3                           ;
-;         4 data inputs ; 6                           ;
+; cycloneiii_lcell_comb ; 41                          ;
+;     arith             ; 11                          ;
+;         2 data inputs ; 11                          ;
+;     normal            ; 30                          ;
+;         1 data inputs ; 1                           ;
+;         2 data inputs ; 6                           ;
+;         3 data inputs ; 5                           ;
+;         4 data inputs ; 18                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 3.00                        ;
-; Average LUT depth     ; 1.83                        ;
+; Max LUT depth         ; 5.00                        ;
+; Average LUT depth     ; 2.93                        ;
 +-----------------------+-----------------------------+
 
 
@@ -298,7 +327,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
-    Info: Processing started: Sun Mar 24 11:58:05 2024
+    Info: Processing started: Tue Mar 26 20:46:22 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off uart -c uart
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
@@ -306,22 +335,23 @@ Warning (12019): Can't analyze file -- file uart_test.v is missing
 Info (12021): Found 1 design units, including 1 entities, in source file uart.v
     Info (12023): Found entity 1: uart File: /home/kuba/programing/git/Uart/uart.v Line: 1
 Info (12127): Elaborating entity "uart" for the top level hierarchy
-Warning (10230): Verilog HDL assignment warning at uart.v(49): truncated value with size 32 to match size of target (8) File: /home/kuba/programing/git/Uart/uart.v Line: 49
-Warning (10027): Verilog HDL or VHDL warning at the uart.v(60): index expression is not wide enough to address all of the elements in the array File: /home/kuba/programing/git/Uart/uart.v Line: 60
-Warning (10230): Verilog HDL assignment warning at uart.v(63): truncated value with size 32 to match size of target (8) File: /home/kuba/programing/git/Uart/uart.v Line: 63
-Warning (10230): Verilog HDL assignment warning at uart.v(70): truncated value with size 32 to match size of target (1) File: /home/kuba/programing/git/Uart/uart.v Line: 70
-Warning (10230): Verilog HDL assignment warning at uart.v(85): truncated value with size 32 to match size of target (8) File: /home/kuba/programing/git/Uart/uart.v Line: 85
+Warning (10230): Verilog HDL assignment warning at uart.v(47): truncated value with size 32 to match size of target (12) File: /home/kuba/programing/git/Uart/uart.v Line: 47
+Warning (10230): Verilog HDL assignment warning at uart.v(61): truncated value with size 32 to match size of target (12) File: /home/kuba/programing/git/Uart/uart.v Line: 61
+Warning (10230): Verilog HDL assignment warning at uart.v(66): truncated value with size 32 to match size of target (4) File: /home/kuba/programing/git/Uart/uart.v Line: 66
+Warning (10230): Verilog HDL assignment warning at uart.v(81): truncated value with size 32 to match size of target (12) File: /home/kuba/programing/git/Uart/uart.v Line: 81
+Warning (10230): Verilog HDL assignment warning at uart.v(86): truncated value with size 32 to match size of target (12) File: /home/kuba/programing/git/Uart/uart.v Line: 86
 Info (286030): Timing-Driven Synthesis is running
+Info (17049): 2 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 26 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 44 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 2 input pins
-    Info (21059): Implemented 3 output pins
-    Info (21061): Implemented 21 logic cells
+    Info (21059): Implemented 1 output pins
+    Info (21061): Implemented 41 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 7 warnings
-    Info: Peak virtual memory: 492 megabytes
-    Info: Processing ended: Sun Mar 24 11:58:10 2024
+    Info: Peak virtual memory: 480 megabytes
+    Info: Processing ended: Tue Mar 26 20:46:27 2024
     Info: Elapsed time: 00:00:05
-    Info: Total CPU time (on all processors): 00:00:18
+    Info: Total CPU time (on all processors): 00:00:16
 
 
