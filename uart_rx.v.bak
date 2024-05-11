@@ -1,0 +1,6 @@
+module uart_rx(
+	input clk,
+//	input [7:0] data_byte
+	input data_ready,
+	output reg output_tx
+);
