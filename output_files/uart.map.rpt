@@ -1,5 +1,5 @@
 Analysis & Synthesis report for uart
-Wed May 15 19:37:30 2024
+Wed May 15 21:06:32 2024
 Quartus Prime Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
 
 
@@ -13,16 +13,17 @@ Quartus Prime Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. State Machine - |uart|uart_tx:tx|tx_state
+  8. State Machine - |uart|uart_tx:tx|state
   9. Registers Removed During Synthesis
  10. General Register Statistics
  11. Multiplexer Restructuring Statistics (Restructuring Performed)
  12. Parameter Settings for User Entity Instance: Top-level Entity: |uart
- 13. Parameter Settings for User Entity Instance: send_button:sb
- 14. Parameter Settings for User Entity Instance: uart_tx:tx
- 15. Post-Synthesis Netlist Statistics for Top Partition
- 16. Elapsed Time Per Partition
- 17. Analysis & Synthesis Messages
+ 13. Parameter Settings for User Entity Instance: button_counter:bc
+ 14. Parameter Settings for User Entity Instance: send_button:sb
+ 15. Parameter Settings for User Entity Instance: uart_tx:tx
+ 16. Post-Synthesis Netlist Statistics for Top Partition
+ 17. Elapsed Time Per Partition
+ 18. Analysis & Synthesis Messages
 
 
 
@@ -49,15 +50,15 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed May 15 19:37:30 2024          ;
+; Analysis & Synthesis Status        ; Successful - Wed May 15 21:06:32 2024          ;
 ; Quartus Prime Version              ; 23.1std.0 Build 991 11/28/2023 SC Lite Edition ;
 ; Revision Name                      ; uart                                           ;
 ; Top-level Entity Name              ; uart                                           ;
 ; Family                             ; MAX 10                                         ;
-; Total logic elements               ; 112                                            ;
-;     Total combinational functions  ; 112                                            ;
-;     Dedicated logic registers      ; 59                                             ;
-; Total registers                    ; 59                                             ;
+; Total logic elements               ; 191                                            ;
+;     Total combinational functions  ; 183                                            ;
+;     Dedicated logic registers      ; 99                                             ;
+; Total registers                    ; 99                                             ;
 ; Total pins                         ; 6                                              ;
 ; Total virtual pins                 ; 0                                              ;
 ; Total memory bits                  ; 0                                              ;
@@ -167,7 +168,8 @@ https://fpgasoftware.intel.com/eula.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-12        ;   0.0%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processors 3-12        ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -179,6 +181,7 @@ https://fpgasoftware.intel.com/eula.
 ; uart.v                           ; yes             ; User Verilog HDL File  ; /home/kuba/programing/git/Uart/uart.v                     ;         ;
 ; uart_tx.v                        ; yes             ; User Verilog HDL File  ; /home/kuba/programing/git/Uart/uart_tx.v                  ;         ;
 ; output_files/send_button.v       ; yes             ; User Verilog HDL File  ; /home/kuba/programing/git/Uart/output_files/send_button.v ;         ;
+; button_counter.v                 ; yes             ; User Verilog HDL File  ; /home/kuba/programing/git/Uart/button_counter.v           ;         ;
 +----------------------------------+-----------------+------------------------+-----------------------------------------------------------+---------+
 
 
@@ -187,20 +190,20 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+-----------+
 ; Resource                                    ; Usage     ;
 +---------------------------------------------+-----------+
-; Estimated Total logic elements              ; 112       ;
+; Estimated Total logic elements              ; 191       ;
 ;                                             ;           ;
-; Total combinational functions               ; 112       ;
+; Total combinational functions               ; 183       ;
 ; Logic element usage by number of LUT inputs ;           ;
-;     -- 4 input functions                    ; 29        ;
-;     -- 3 input functions                    ; 29        ;
-;     -- <=2 input functions                  ; 54        ;
+;     -- 4 input functions                    ; 65        ;
+;     -- 3 input functions                    ; 10        ;
+;     -- <=2 input functions                  ; 108       ;
 ;                                             ;           ;
 ; Logic elements by mode                      ;           ;
-;     -- normal mode                          ; 65        ;
-;     -- arithmetic mode                      ; 47        ;
+;     -- normal mode                          ; 107       ;
+;     -- arithmetic mode                      ; 76        ;
 ;                                             ;           ;
-; Total registers                             ; 59        ;
-;     -- Dedicated logic registers            ; 59        ;
+; Total registers                             ; 99        ;
+;     -- Dedicated logic registers            ; 99        ;
 ;     -- I/O registers                        ; 0         ;
 ;                                             ;           ;
 ; I/O pins                                    ; 6         ;
@@ -208,49 +211,50 @@ https://fpgasoftware.intel.com/eula.
 ; Embedded Multiplier 9-bit elements          ; 0         ;
 ;                                             ;           ;
 ; Maximum fan-out node                        ; clk~input ;
-; Maximum fan-out                             ; 59        ;
-; Total fan-out                               ; 509       ;
-; Average fan-out                             ; 2.78      ;
+; Maximum fan-out                             ; 99        ;
+; Total fan-out                               ; 813       ;
+; Average fan-out                             ; 2.77      ;
 +---------------------------------------------+-----------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                 ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+----------------------+-------------+--------------+
-; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name  ; Entity Name ; Library Name ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+----------------------+-------------+--------------+
-; |uart                      ; 112 (0)             ; 59 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 6    ; 0            ; 0          ; |uart                ; uart        ; work         ;
-;    |send_button:sb|        ; 59 (59)             ; 25 (25)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |uart|send_button:sb ; send_button ; work         ;
-;    |uart_tx:tx|            ; 53 (53)             ; 34 (34)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |uart|uart_tx:tx     ; uart_tx     ; work         ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+----------------------+-------------+--------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                       ;
++----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-------------------------+----------------+--------------+
+; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name     ; Entity Name    ; Library Name ;
++----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-------------------------+----------------+--------------+
+; |uart                      ; 183 (0)             ; 99 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 6    ; 0            ; 0          ; |uart                   ; uart           ; work         ;
+;    |button_counter:bc|     ; 66 (66)             ; 40 (40)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |uart|button_counter:bc ; button_counter ; work         ;
+;    |send_button:sb|        ; 60 (60)             ; 25 (25)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |uart|send_button:sb    ; send_button    ; work         ;
+;    |uart_tx:tx|            ; 57 (57)             ; 34 (34)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |uart|uart_tx:tx        ; uart_tx        ; work         ;
++----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-------------------------+----------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
 Encoding Type:  One-Hot
-+-----------------------------------------------------------------------------------------------+
-; State Machine - |uart|uart_tx:tx|tx_state                                                     ;
-+-------------------+-----------------+------------------+-------------------+------------------+
-; Name              ; tx_state.TX_END ; tx_state.TX_DATA ; tx_state.TX_START ; tx_state.TX_IDLE ;
-+-------------------+-----------------+------------------+-------------------+------------------+
-; tx_state.TX_IDLE  ; 0               ; 0                ; 0                 ; 0                ;
-; tx_state.TX_START ; 0               ; 0                ; 1                 ; 1                ;
-; tx_state.TX_DATA  ; 0               ; 1                ; 0                 ; 1                ;
-; tx_state.TX_END   ; 1               ; 0                ; 0                 ; 1                ;
-+-------------------+-----------------+------------------+-------------------+------------------+
++-----------------------------------------------------------------+
+; State Machine - |uart|uart_tx:tx|state                          ;
++-------------+-----------+------------+-------------+------------+
+; Name        ; state.END ; state.DATA ; state.START ; state.IDLE ;
++-------------+-----------+------------+-------------+------------+
+; state.IDLE  ; 0         ; 0          ; 0           ; 0          ;
+; state.START ; 0         ; 0          ; 1           ; 1          ;
+; state.DATA  ; 0         ; 1          ; 0           ; 1          ;
+; state.END   ; 1         ; 0          ; 0           ; 1          ;
++-------------+-----------+------------+-------------+------------+
 
 
-+---------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                              ;
-+----------------------------------------+----------------------------------------+
-; Register name                          ; Reason for Removal                     ;
-+----------------------------------------+----------------------------------------+
-; send_button:sb|start_transmit          ; Merged with send_button:sb|send        ;
-; send_button:sb|button_clk_count[23,24] ; Stuck at GND due to stuck port data_in ;
-; uart_tx:tx|tx_state~6                  ; Lost fanout                            ;
-; uart_tx:tx|tx_state~7                  ; Lost fanout                            ;
-; uart_tx:tx|tx_state~8                  ; Lost fanout                            ;
-; Total Number of Removed Registers = 6  ;                                        ;
-+----------------------------------------+----------------------------------------+
++-----------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                ;
++------------------------------------------+----------------------------------------+
+; Register name                            ; Reason for Removal                     ;
++------------------------------------------+----------------------------------------+
+; button_counter:bc|count_clk_count[23,24] ; Stuck at GND due to stuck port data_in ;
+; send_button:sb|button_clk_count[23,24]   ; Stuck at GND due to stuck port data_in ;
+; uart_tx:tx|state~6                       ; Lost fanout                            ;
+; uart_tx:tx|state~7                       ; Lost fanout                            ;
+; uart_tx:tx|state~8                       ; Lost fanout                            ;
+; Total Number of Removed Registers = 7    ;                                        ;
++------------------------------------------+----------------------------------------+
 
 
 +------------------------------------------------------+
@@ -258,12 +262,12 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 59    ;
+; Total registers                              ; 99    ;
 ; Number of registers using Synchronous Clear  ; 25    ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 51    ;
+; Number of registers using Clock Enable       ; 81    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -273,9 +277,9 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------+
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |uart|uart_tx:tx|tx_bit_index[0]          ;
-; 4:1                ; 25 bits   ; 50 LEs        ; 25 LEs               ; 25 LEs                 ; Yes        ; |uart|uart_tx:tx|clk_count[10]            ;
-; 4:1                ; 25 bits   ; 50 LEs        ; 25 LEs               ; 25 LEs                 ; Yes        ; |uart|send_button:sb|button_clk_count[15] ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |uart|uart_tx:tx|bit_index[0]             ;
+; 4:1                ; 25 bits   ; 50 LEs        ; 25 LEs               ; 25 LEs                 ; Yes        ; |uart|uart_tx:tx|clk_count[0]             ;
+; 4:1                ; 25 bits   ; 50 LEs        ; 25 LEs               ; 25 LEs                 ; Yes        ; |uart|send_button:sb|button_clk_count[10] ;
 ; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |uart|uart_tx:tx|Selector29               ;
 ; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |uart|uart_tx:tx|Selector28               ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------+
@@ -288,6 +292,16 @@ Encoding Type:  One-Hot
 +----------------+--------+--------------------------------------------+
 ; baudrate       ; 115200 ; Signed Integer                             ;
 +----------------+--------+--------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: button_counter:bc ;
++----------------+---------+-------------------------------------+
+; Parameter Name ; Value   ; Type                                ;
++----------------+---------+-------------------------------------+
+; count_time     ; 5000000 ; Signed Integer                      ;
++----------------+---------+-------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -317,22 +331,23 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 6                           ;
-; cycloneiii_ff         ; 59                          ;
-;     ENA               ; 26                          ;
+; cycloneiii_ff         ; 99                          ;
+;     ENA               ; 56                          ;
 ;     ENA SCLR          ; 25                          ;
-;     plain             ; 8                           ;
-; cycloneiii_lcell_comb ; 113                         ;
-;     arith             ; 47                          ;
-;         2 data inputs ; 47                          ;
-;     normal            ; 66                          ;
+;     plain             ; 18                          ;
+; cycloneiii_lcell_comb ; 183                         ;
+;     arith             ; 76                          ;
+;         2 data inputs ; 75                          ;
+;         3 data inputs ; 1                           ;
+;     normal            ; 107                         ;
 ;         0 data inputs ; 2                           ;
-;         1 data inputs ; 1                           ;
-;         2 data inputs ; 5                           ;
-;         3 data inputs ; 29                          ;
-;         4 data inputs ; 29                          ;
+;         1 data inputs ; 2                           ;
+;         2 data inputs ; 29                          ;
+;         3 data inputs ; 9                           ;
+;         4 data inputs ; 65                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 9.40                        ;
-; Average LUT depth     ; 5.50                        ;
+; Average LUT depth     ; 5.32                        ;
 +-----------------------+-----------------------------+
 
 
@@ -351,7 +366,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
-    Info: Processing started: Wed May 15 19:37:25 2024
+    Info: Processing started: Wed May 15 21:06:25 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off uart -c uart
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
@@ -363,44 +378,40 @@ Info (12021): Found 1 design units, including 1 entities, in source file output_
     Info (12023): Found entity 1: send_button File: /home/kuba/programing/git/Uart/output_files/send_button.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file button_counter.v
     Info (12023): Found entity 1: button_counter File: /home/kuba/programing/git/Uart/button_counter.v Line: 1
-Warning (10222): Verilog HDL Parameter Declaration warning at uart_tx.v(13): Parameter Declaration in module "uart_tx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_tx.v Line: 13
-Warning (10222): Verilog HDL Parameter Declaration warning at uart_tx.v(14): Parameter Declaration in module "uart_tx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_tx.v Line: 14
+Info (12021): Found 1 design units, including 1 entities, in source file uart_rx.v
+    Info (12023): Found entity 1: uart_rx File: /home/kuba/programing/git/Uart/uart_rx.v Line: 1
+Warning (10222): Verilog HDL Parameter Declaration warning at uart_tx.v(9): Parameter Declaration in module "uart_tx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_tx.v Line: 9
+Warning (10222): Verilog HDL Parameter Declaration warning at uart_tx.v(10): Parameter Declaration in module "uart_tx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_tx.v Line: 10
+Warning (10222): Verilog HDL Parameter Declaration warning at uart_tx.v(11): Parameter Declaration in module "uart_tx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_tx.v Line: 11
+Warning (10222): Verilog HDL Parameter Declaration warning at uart_tx.v(12): Parameter Declaration in module "uart_tx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_tx.v Line: 12
 Warning (10222): Verilog HDL Parameter Declaration warning at uart_tx.v(15): Parameter Declaration in module "uart_tx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_tx.v Line: 15
-Warning (10222): Verilog HDL Parameter Declaration warning at uart_tx.v(16): Parameter Declaration in module "uart_tx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_tx.v Line: 16
-Warning (10222): Verilog HDL Parameter Declaration warning at uart_tx.v(19): Parameter Declaration in module "uart_tx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_tx.v Line: 19
-Warning (10222): Verilog HDL Parameter Declaration warning at uart_tx.v(22): Parameter Declaration in module "uart_tx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_tx.v Line: 22
+Warning (10222): Verilog HDL Parameter Declaration warning at uart_tx.v(18): Parameter Declaration in module "uart_tx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_tx.v Line: 18
 Info (12127): Elaborating entity "uart" for the top level hierarchy
-Warning (10036): Verilog HDL or VHDL warning at uart.v(13): object "data" assigned a value but never read File: /home/kuba/programing/git/Uart/uart.v Line: 13
-Warning (10034): Output port "led" at uart.v(8) has no driver File: /home/kuba/programing/git/Uart/uart.v Line: 8
-Info (12128): Elaborating entity "send_button" for hierarchy "send_button:sb" File: /home/kuba/programing/git/Uart/uart.v Line: 16
-Warning (10230): Verilog HDL assignment warning at send_button.v(18): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/output_files/send_button.v Line: 18
-Info (12128): Elaborating entity "uart_tx" for hierarchy "uart_tx:tx" File: /home/kuba/programing/git/Uart/uart.v Line: 17
-Warning (10036): Verilog HDL or VHDL warning at uart_tx.v(23): object "tx_next_state" assigned a value but never read File: /home/kuba/programing/git/Uart/uart_tx.v Line: 23
-Warning (10036): Verilog HDL or VHDL warning at uart_tx.v(26): object "next_tx_bit_index" assigned a value but never read File: /home/kuba/programing/git/Uart/uart_tx.v Line: 26
-Warning (10036): Verilog HDL or VHDL warning at uart_tx.v(27): object "clk_rst" assigned a value but never read File: /home/kuba/programing/git/Uart/uart_tx.v Line: 27
-Warning (10036): Verilog HDL or VHDL warning at uart_tx.v(28): object "tx_busy" assigned a value but never read File: /home/kuba/programing/git/Uart/uart_tx.v Line: 28
-Warning (10036): Verilog HDL or VHDL warning at uart_tx.v(29): object "led_state" assigned a value but never read File: /home/kuba/programing/git/Uart/uart_tx.v Line: 29
-Warning (10230): Verilog HDL assignment warning at uart_tx.v(48): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/uart_tx.v Line: 48
-Warning (10230): Verilog HDL assignment warning at uart_tx.v(62): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/uart_tx.v Line: 62
-Warning (10230): Verilog HDL assignment warning at uart_tx.v(67): truncated value with size 32 to match size of target (4) File: /home/kuba/programing/git/Uart/uart_tx.v Line: 67
-Warning (10230): Verilog HDL assignment warning at uart_tx.v(82): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/uart_tx.v Line: 82
-Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "led[0]" is stuck at GND File: /home/kuba/programing/git/Uart/uart.v Line: 8
-    Warning (13410): Pin "led[1]" is stuck at GND File: /home/kuba/programing/git/Uart/uart.v Line: 8
+Warning (10230): Verilog HDL assignment warning at uart.v(19): truncated value with size 8 to match size of target (2) File: /home/kuba/programing/git/Uart/uart.v Line: 19
+Info (12128): Elaborating entity "button_counter" for hierarchy "button_counter:bc" File: /home/kuba/programing/git/Uart/uart.v Line: 14
+Warning (10036): Verilog HDL or VHDL warning at button_counter.v(9): object "count_reset" assigned a value but never read File: /home/kuba/programing/git/Uart/button_counter.v Line: 9
+Warning (10230): Verilog HDL assignment warning at button_counter.v(16): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/button_counter.v Line: 16
+Warning (10230): Verilog HDL assignment warning at button_counter.v(21): truncated value with size 32 to match size of target (8) File: /home/kuba/programing/git/Uart/button_counter.v Line: 21
+Info (12128): Elaborating entity "send_button" for hierarchy "send_button:sb" File: /home/kuba/programing/git/Uart/uart.v Line: 15
+Warning (10036): Verilog HDL or VHDL warning at send_button.v(8): object "start_transmit" assigned a value but never read File: /home/kuba/programing/git/Uart/output_files/send_button.v Line: 8
+Warning (10230): Verilog HDL assignment warning at send_button.v(17): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/output_files/send_button.v Line: 17
+Info (12128): Elaborating entity "uart_tx" for hierarchy "uart_tx:tx" File: /home/kuba/programing/git/Uart/uart.v Line: 16
+Warning (10230): Verilog HDL assignment warning at uart_tx.v(40): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/uart_tx.v Line: 40
+Warning (10230): Verilog HDL assignment warning at uart_tx.v(54): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/uart_tx.v Line: 54
+Warning (10230): Verilog HDL assignment warning at uart_tx.v(59): truncated value with size 32 to match size of target (4) File: /home/kuba/programing/git/Uart/uart_tx.v Line: 59
+Warning (10230): Verilog HDL assignment warning at uart_tx.v(74): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/uart_tx.v Line: 74
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 3 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 1 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "data_count" File: /home/kuba/programing/git/Uart/uart.v Line: 5
-Info (21057): Implemented 118 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 197 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 3 input pins
     Info (21059): Implemented 3 output pins
-    Info (21061): Implemented 112 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 24 warnings
-    Info: Peak virtual memory: 452 megabytes
-    Info: Processing ended: Wed May 15 19:37:30 2024
-    Info: Elapsed time: 00:00:05
-    Info: Total CPU time (on all processors): 00:00:17
+    Info (21061): Implemented 191 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 17 warnings
+    Info: Peak virtual memory: 468 megabytes
+    Info: Processing ended: Wed May 15 21:06:32 2024
+    Info: Elapsed time: 00:00:07
+    Info: Total CPU time (on all processors): 00:00:21
 
 

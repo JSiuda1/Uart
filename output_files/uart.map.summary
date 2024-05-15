@@ -1,12 +1,12 @@
-Analysis & Synthesis Status : Successful - Wed May 15 19:37:30 2024
+Analysis & Synthesis Status : Successful - Wed May 15 21:06:32 2024
 Quartus Prime Version : 23.1std.0 Build 991 11/28/2023 SC Lite Edition
 Revision Name : uart
 Top-level Entity Name : uart
 Family : MAX 10
-Total logic elements : 112
-    Total combinational functions : 112
-    Dedicated logic registers : 59
-Total registers : 59
+Total logic elements : 191
+    Total combinational functions : 183
+    Dedicated logic registers : 99
+Total registers : 99
 Total pins : 6
 Total virtual pins : 0
 Total memory bits : 0

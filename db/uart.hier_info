@@ -1,10 +1,64 @@
 |uart
-clk => clk.IN2
-data_ready => data_ready.IN1
-data_count => ~NO_FANOUT~
-output_tx <= uart_tx:tx.port2
-led[0] <= <GND>
-led[1] <= <GND>
+clk => clk.IN3
+send_button => send_button.IN1
+count_button => count_button.IN1
+output_tx << uart_tx:tx.port3
+led[0] << data[0].DB_MAX_OUTPUT_PORT_TYPE
+led[1] << data[1].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|uart|button_counter:bc
+clk => value[0]~reg0.CLK
+clk => value[1]~reg0.CLK
+clk => value[2]~reg0.CLK
+clk => value[3]~reg0.CLK
+clk => value[4]~reg0.CLK
+clk => value[5]~reg0.CLK
+clk => value[6]~reg0.CLK
+clk => value[7]~reg0.CLK
+clk => value_buffer[0].CLK
+clk => value_buffer[1].CLK
+clk => value_buffer[2].CLK
+clk => value_buffer[3].CLK
+clk => value_buffer[4].CLK
+clk => value_buffer[5].CLK
+clk => value_buffer[6].CLK
+clk => value_buffer[7].CLK
+clk => debouncing.CLK
+clk => count_clk_count[0].CLK
+clk => count_clk_count[1].CLK
+clk => count_clk_count[2].CLK
+clk => count_clk_count[3].CLK
+clk => count_clk_count[4].CLK
+clk => count_clk_count[5].CLK
+clk => count_clk_count[6].CLK
+clk => count_clk_count[7].CLK
+clk => count_clk_count[8].CLK
+clk => count_clk_count[9].CLK
+clk => count_clk_count[10].CLK
+clk => count_clk_count[11].CLK
+clk => count_clk_count[12].CLK
+clk => count_clk_count[13].CLK
+clk => count_clk_count[14].CLK
+clk => count_clk_count[15].CLK
+clk => count_clk_count[16].CLK
+clk => count_clk_count[17].CLK
+clk => count_clk_count[18].CLK
+clk => count_clk_count[19].CLK
+clk => count_clk_count[20].CLK
+clk => count_clk_count[21].CLK
+clk => count_clk_count[22].CLK
+clk => count_clk_count[23].CLK
+clk => count_clk_count[24].CLK
+button_pin => debouncing.OUTPUTSELECT
+value[0] <= value[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+value[1] <= value[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+value[2] <= value[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+value[3] <= value[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+value[4] <= value[4]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+value[5] <= value[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+value[6] <= value[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+value[7] <= value[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |uart|send_button:sb
@@ -34,17 +88,42 @@ clk => button_clk_count[21].CLK
 clk => button_clk_count[22].CLK
 clk => button_clk_count[23].CLK
 clk => button_clk_count[24].CLK
-clk => start_transmit.CLK
 clk => send~reg0.CLK
-button_pin => always0.IN1
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => button_clk_count.OUTPUTSELECT
+button_pin => send.OUTPUTSELECT
+button_pin => wait_debouncing.OUTPUTSELECT
 send <= send~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |uart|uart_tx:tx
-clk => tx_bit_index[0].CLK
-clk => tx_bit_index[1].CLK
-clk => tx_bit_index[2].CLK
-clk => tx_bit_index[3].CLK
+clk => bit_index[0].CLK
+clk => bit_index[1].CLK
+clk => bit_index[2].CLK
+clk => bit_index[3].CLK
 clk => clk_count[0].CLK
 clk => clk_count[1].CLK
 clk => clk_count[2].CLK
@@ -71,7 +150,15 @@ clk => clk_count[22].CLK
 clk => clk_count[23].CLK
 clk => clk_count[24].CLK
 clk => output_tx~reg0.CLK
-clk => tx_state~5.DATAIN
+clk => state~5.DATAIN
+data_byte[0] => Mux0.IN7
+data_byte[1] => Mux0.IN6
+data_byte[2] => Mux0.IN5
+data_byte[3] => Mux0.IN4
+data_byte[4] => Mux0.IN3
+data_byte[5] => Mux0.IN2
+data_byte[6] => Mux0.IN1
+data_byte[7] => Mux0.IN0
 data_ready => clk_count.OUTPUTSELECT
 data_ready => clk_count.OUTPUTSELECT
 data_ready => clk_count.OUTPUTSELECT
@@ -97,10 +184,10 @@ data_ready => clk_count.OUTPUTSELECT
 data_ready => clk_count.OUTPUTSELECT
 data_ready => clk_count.OUTPUTSELECT
 data_ready => clk_count.OUTPUTSELECT
-data_ready => tx_state.OUTPUTSELECT
-data_ready => tx_state.OUTPUTSELECT
-data_ready => tx_state.OUTPUTSELECT
-data_ready => tx_state.OUTPUTSELECT
+data_ready => state.OUTPUTSELECT
+data_ready => state.OUTPUTSELECT
+data_ready => state.OUTPUTSELECT
+data_ready => state.OUTPUTSELECT
 output_tx <= output_tx~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 

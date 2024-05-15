@@ -1,21 +1,21 @@
 module uart #(parameter baudrate = 115200)
 (
 	input clk,
-	input data_ready,
-	input data_count,
+	input send_button,
+	input count_button,
 	output output_tx,
-	output reg [1:0] led
+	output [1:0] led
 );
 
 	wire test_output_tx, test_led;
 	wire send;
-	// wire data;
-	reg [7:0] data = 0;
+	wire [7:0] data;
 	
-	// button_counter bc(clk, data_count, data);
-	send_button sb(clk, data_ready, send);
-	uart_tx tx(clk, send, test_output_tx);
+	button_counter bc(clk, count_button, data);
+	send_button sb(clk, send_button, send);
+	uart_tx tx(clk, data, send, test_output_tx);
 
 	assign output_tx = test_output_tx;
+	assign led = data;
 
 endmodule 

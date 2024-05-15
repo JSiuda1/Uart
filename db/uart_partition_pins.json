@@ -8,11 +8,23 @@
 					"strict" : false
 				},
 				{
+					"name" : "led[0]",
+					"strict" : false
+				},
+				{
+					"name" : "led[1]",
+					"strict" : false
+				},
+				{
 					"name" : "clk",
 					"strict" : false
 				},
 				{
-					"name" : "data_ready",
+					"name" : "send_button",
+					"strict" : false
+				},
+				{
+					"name" : "count_button",
 					"strict" : false
 				}
 			]

@@ -7,6 +7,7 @@ module button_counter (
 	reg debouncing = 0;
 	parameter count_time = 5000000;
 	reg count_reset = 0;
+	reg [7:0] value_buffer = 0;
 
 	always @(posedge clk)
 	begin
@@ -17,7 +18,7 @@ module button_counter (
 			begin
 				count_clk_count = 0;
 				debouncing = 0;
-				value <= value + 1;
+				value_buffer <= value_buffer + 1;
 			end
 		end
 		else
@@ -27,6 +28,8 @@ module button_counter (
 				debouncing = 1;
 			end
 		end
+		
+		value <= value_buffer;
 	end
 	
 

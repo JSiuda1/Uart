@@ -14,7 +14,6 @@ always @(posedge clk)
 		if (wait_debouncing == 1) 
 		begin
 			send <= 0;
-			start_transmit = 0;
 			button_clk_count = button_clk_count + 1;
 			if (button_clk_count > debouncing_time) 
 			begin
@@ -24,10 +23,9 @@ always @(posedge clk)
 		end
 		else
 		begin
-			if (button_pin == 0 && start_transmit == 0)
+			if (button_pin == 0)
 			begin
 				button_clk_count = 0;
-				start_transmit = 1;
 				send <= 1;
 				wait_debouncing = 1;
 			end
