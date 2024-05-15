@@ -14,10 +14,6 @@
 				{
 					"name" : "data_ready",
 					"strict" : false
-				},
-				{
-					"name" : "data_count",
-					"strict" : false
 				}
 			]
 		}

@@ -1,0 +1,4 @@
+module send_button(
+	input button_pin
+	output send
+)

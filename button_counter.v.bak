@@ -1,0 +1,7 @@
+module button_counter (
+	input button_pin,
+	output [7:0] value
+)
+
+
+endmodule
