@@ -1,5 +1,5 @@
 Analysis & Synthesis report for uart
-Wed May 15 21:06:32 2024
+Wed May 15 22:16:30 2024
 Quartus Prime Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
 
 
@@ -13,17 +13,20 @@ Quartus Prime Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. State Machine - |uart|uart_tx:tx|state
-  9. Registers Removed During Synthesis
- 10. General Register Statistics
- 11. Multiplexer Restructuring Statistics (Restructuring Performed)
- 12. Parameter Settings for User Entity Instance: Top-level Entity: |uart
- 13. Parameter Settings for User Entity Instance: button_counter:bc
- 14. Parameter Settings for User Entity Instance: send_button:sb
- 15. Parameter Settings for User Entity Instance: uart_tx:tx
- 16. Post-Synthesis Netlist Statistics for Top Partition
- 17. Elapsed Time Per Partition
- 18. Analysis & Synthesis Messages
+  8. State Machine - |uart|uart_rx:rx|state
+  9. State Machine - |uart|uart_tx:tx|state
+ 10. Registers Removed During Synthesis
+ 11. General Register Statistics
+ 12. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 13. Parameter Settings for User Entity Instance: Top-level Entity: |uart
+ 14. Parameter Settings for User Entity Instance: button_counter:bc
+ 15. Parameter Settings for User Entity Instance: send_button:sb
+ 16. Parameter Settings for User Entity Instance: uart_tx:tx
+ 17. Parameter Settings for User Entity Instance: uart_rx:rx
+ 18. Port Connectivity Checks: "uart_rx:rx"
+ 19. Post-Synthesis Netlist Statistics for Top Partition
+ 20. Elapsed Time Per Partition
+ 21. Analysis & Synthesis Messages
 
 
 
@@ -50,16 +53,16 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed May 15 21:06:32 2024          ;
+; Analysis & Synthesis Status        ; Successful - Wed May 15 22:16:30 2024          ;
 ; Quartus Prime Version              ; 23.1std.0 Build 991 11/28/2023 SC Lite Edition ;
 ; Revision Name                      ; uart                                           ;
 ; Top-level Entity Name              ; uart                                           ;
 ; Family                             ; MAX 10                                         ;
-; Total logic elements               ; 191                                            ;
-;     Total combinational functions  ; 183                                            ;
-;     Dedicated logic registers      ; 99                                             ;
-; Total registers                    ; 99                                             ;
-; Total pins                         ; 6                                              ;
+; Total logic elements               ; 252                                            ;
+;     Total combinational functions  ; 240                                            ;
+;     Dedicated logic registers      ; 140                                            ;
+; Total registers                    ; 140                                            ;
+; Total pins                         ; 9                                              ;
 ; Total virtual pins                 ; 0                                              ;
 ; Total memory bits                  ; 0                                              ;
 ; Embedded Multiplier 9-bit elements ; 0                                              ;
@@ -168,8 +171,7 @@ https://fpgasoftware.intel.com/eula.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
-;     Processors 3-12        ;   0.0%      ;
+;     Processors 2-12        ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -182,6 +184,7 @@ https://fpgasoftware.intel.com/eula.
 ; uart_tx.v                        ; yes             ; User Verilog HDL File  ; /home/kuba/programing/git/Uart/uart_tx.v                  ;         ;
 ; output_files/send_button.v       ; yes             ; User Verilog HDL File  ; /home/kuba/programing/git/Uart/output_files/send_button.v ;         ;
 ; button_counter.v                 ; yes             ; User Verilog HDL File  ; /home/kuba/programing/git/Uart/button_counter.v           ;         ;
+; uart_rx.v                        ; yes             ; User Verilog HDL File  ; /home/kuba/programing/git/Uart/uart_rx.v                  ;         ;
 +----------------------------------+-----------------+------------------------+-----------------------------------------------------------+---------+
 
 
@@ -190,30 +193,30 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+-----------+
 ; Resource                                    ; Usage     ;
 +---------------------------------------------+-----------+
-; Estimated Total logic elements              ; 191       ;
+; Estimated Total logic elements              ; 252       ;
 ;                                             ;           ;
-; Total combinational functions               ; 183       ;
+; Total combinational functions               ; 240       ;
 ; Logic element usage by number of LUT inputs ;           ;
-;     -- 4 input functions                    ; 65        ;
-;     -- 3 input functions                    ; 10        ;
-;     -- <=2 input functions                  ; 108       ;
+;     -- 4 input functions                    ; 64        ;
+;     -- 3 input functions                    ; 37        ;
+;     -- <=2 input functions                  ; 139       ;
 ;                                             ;           ;
 ; Logic elements by mode                      ;           ;
-;     -- normal mode                          ; 107       ;
-;     -- arithmetic mode                      ; 76        ;
+;     -- normal mode                          ; 140       ;
+;     -- arithmetic mode                      ; 100       ;
 ;                                             ;           ;
-; Total registers                             ; 99        ;
-;     -- Dedicated logic registers            ; 99        ;
+; Total registers                             ; 140       ;
+;     -- Dedicated logic registers            ; 140       ;
 ;     -- I/O registers                        ; 0         ;
 ;                                             ;           ;
-; I/O pins                                    ; 6         ;
+; I/O pins                                    ; 9         ;
 ;                                             ;           ;
 ; Embedded Multiplier 9-bit elements          ; 0         ;
 ;                                             ;           ;
 ; Maximum fan-out node                        ; clk~input ;
-; Maximum fan-out                             ; 99        ;
-; Total fan-out                               ; 813       ;
-; Average fan-out                             ; 2.77      ;
+; Maximum fan-out                             ; 140       ;
+; Total fan-out                               ; 1096      ;
+; Average fan-out                             ; 2.75      ;
 +---------------------------------------------+-----------+
 
 
@@ -222,12 +225,26 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-------------------------+----------------+--------------+
 ; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name     ; Entity Name    ; Library Name ;
 +----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-------------------------+----------------+--------------+
-; |uart                      ; 183 (0)             ; 99 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 6    ; 0            ; 0          ; |uart                   ; uart           ; work         ;
+; |uart                      ; 240 (0)             ; 140 (0)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 9    ; 0            ; 0          ; |uart                   ; uart           ; work         ;
 ;    |button_counter:bc|     ; 66 (66)             ; 40 (40)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |uart|button_counter:bc ; button_counter ; work         ;
-;    |send_button:sb|        ; 60 (60)             ; 25 (25)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |uart|send_button:sb    ; send_button    ; work         ;
-;    |uart_tx:tx|            ; 57 (57)             ; 34 (34)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |uart|uart_tx:tx        ; uart_tx        ; work         ;
+;    |send_button:sb|        ; 59 (59)             ; 25 (25)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |uart|send_button:sb    ; send_button    ; work         ;
+;    |uart_rx:rx|            ; 62 (62)             ; 41 (41)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |uart|uart_rx:rx        ; uart_rx        ; work         ;
+;    |uart_tx:tx|            ; 53 (53)             ; 34 (34)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |uart|uart_tx:tx        ; uart_tx        ; work         ;
 +----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-------------------------+----------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++-----------------------------------------------------------------+
+; State Machine - |uart|uart_rx:rx|state                          ;
++-------------+-----------+------------+-------------+------------+
+; Name        ; state.END ; state.DATA ; state.START ; state.IDLE ;
++-------------+-----------+------------+-------------+------------+
+; state.IDLE  ; 0         ; 0          ; 0           ; 0          ;
+; state.START ; 0         ; 0          ; 1           ; 1          ;
+; state.DATA  ; 0         ; 1          ; 0           ; 1          ;
+; state.END   ; 1         ; 0          ; 0           ; 1          ;
++-------------+-----------+------------+-------------+------------+
 
 
 Encoding Type:  One-Hot
@@ -248,12 +265,15 @@ Encoding Type:  One-Hot
 +------------------------------------------+----------------------------------------+
 ; Register name                            ; Reason for Removal                     ;
 +------------------------------------------+----------------------------------------+
-; button_counter:bc|count_clk_count[23,24] ; Stuck at GND due to stuck port data_in ;
 ; send_button:sb|button_clk_count[23,24]   ; Stuck at GND due to stuck port data_in ;
+; button_counter:bc|count_clk_count[23,24] ; Stuck at GND due to stuck port data_in ;
+; uart_rx:rx|state~6                       ; Lost fanout                            ;
+; uart_rx:rx|state~7                       ; Lost fanout                            ;
+; uart_rx:rx|state~8                       ; Lost fanout                            ;
 ; uart_tx:tx|state~6                       ; Lost fanout                            ;
 ; uart_tx:tx|state~7                       ; Lost fanout                            ;
 ; uart_tx:tx|state~8                       ; Lost fanout                            ;
-; Total Number of Removed Registers = 7    ;                                        ;
+; Total Number of Removed Registers = 10   ;                                        ;
 +------------------------------------------+----------------------------------------+
 
 
@@ -262,12 +282,12 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 99    ;
-; Number of registers using Synchronous Clear  ; 25    ;
+; Total registers                              ; 140   ;
+; Number of registers using Synchronous Clear  ; 50    ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 81    ;
+; Number of registers using Clock Enable       ; 114   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -277,10 +297,13 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------+
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |uart|uart_tx:tx|bit_index[0]             ;
-; 4:1                ; 25 bits   ; 50 LEs        ; 25 LEs               ; 25 LEs                 ; Yes        ; |uart|uart_tx:tx|clk_count[0]             ;
-; 4:1                ; 25 bits   ; 50 LEs        ; 25 LEs               ; 25 LEs                 ; Yes        ; |uart|send_button:sb|button_clk_count[10] ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |uart|uart_tx:tx|bit_index[3]             ;
+; 4:1                ; 25 bits   ; 50 LEs        ; 25 LEs               ; 25 LEs                 ; Yes        ; |uart|uart_tx:tx|clk_count[24]            ;
+; 4:1                ; 25 bits   ; 50 LEs        ; 25 LEs               ; 25 LEs                 ; Yes        ; |uart|send_button:sb|button_clk_count[13] ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; Yes        ; |uart|uart_rx:rx|bit_index[1]             ;
+; 6:1                ; 25 bits   ; 100 LEs       ; 25 LEs               ; 75 LEs                 ; Yes        ; |uart|uart_rx:rx|clk_count[8]             ;
 ; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |uart|uart_tx:tx|Selector29               ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 12 LEs               ; 8 LEs                  ; No         ; |uart|uart_rx:rx|Selector33               ;
 ; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |uart|uart_tx:tx|Selector28               ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------+
 
@@ -325,29 +348,49 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
++---------------------------------------------------------+
+; Parameter Settings for User Entity Instance: uart_rx:rx ;
++----------------+--------+-------------------------------+
+; Parameter Name ; Value  ; Type                          ;
++----------------+--------+-------------------------------+
+; baudrate       ; 115200 ; Signed Integer                ;
++----------------+--------+-------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "uart_rx:rx"                                                                                   ;
++----------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port           ; Type   ; Severity ; Details                                                                             ;
++----------------+--------+----------+-------------------------------------------------------------------------------------+
+; out_data[7..4] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; done           ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++----------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
 +-----------------------------------------------------+
 ; Post-Synthesis Netlist Statistics for Top Partition ;
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 6                           ;
-; cycloneiii_ff         ; 99                          ;
-;     ENA               ; 56                          ;
-;     ENA SCLR          ; 25                          ;
-;     plain             ; 18                          ;
-; cycloneiii_lcell_comb ; 183                         ;
-;     arith             ; 76                          ;
-;         2 data inputs ; 75                          ;
+; boundary_port         ; 9                           ;
+; cycloneiii_ff         ; 140                         ;
+;     ENA               ; 64                          ;
+;     ENA SCLR          ; 50                          ;
+;     plain             ; 26                          ;
+; cycloneiii_lcell_comb ; 240                         ;
+;     arith             ; 100                         ;
+;         2 data inputs ; 99                          ;
 ;         3 data inputs ; 1                           ;
-;     normal            ; 107                         ;
+;     normal            ; 140                         ;
 ;         0 data inputs ; 2                           ;
-;         1 data inputs ; 2                           ;
-;         2 data inputs ; 29                          ;
-;         3 data inputs ; 9                           ;
-;         4 data inputs ; 65                          ;
+;         1 data inputs ; 3                           ;
+;         2 data inputs ; 35                          ;
+;         3 data inputs ; 36                          ;
+;         4 data inputs ; 64                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 9.40                        ;
-; Average LUT depth     ; 5.32                        ;
+; Max LUT depth         ; 8.40                        ;
+; Average LUT depth     ; 5.08                        ;
 +-----------------------+-----------------------------+
 
 
@@ -366,7 +409,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
-    Info: Processing started: Wed May 15 21:06:25 2024
+    Info: Processing started: Wed May 15 22:16:26 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off uart -c uart
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
@@ -386,32 +429,43 @@ Warning (10222): Verilog HDL Parameter Declaration warning at uart_tx.v(11): Par
 Warning (10222): Verilog HDL Parameter Declaration warning at uart_tx.v(12): Parameter Declaration in module "uart_tx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_tx.v Line: 12
 Warning (10222): Verilog HDL Parameter Declaration warning at uart_tx.v(15): Parameter Declaration in module "uart_tx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_tx.v Line: 15
 Warning (10222): Verilog HDL Parameter Declaration warning at uart_tx.v(18): Parameter Declaration in module "uart_tx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_tx.v Line: 18
+Warning (10222): Verilog HDL Parameter Declaration warning at uart_rx.v(8): Parameter Declaration in module "uart_rx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_rx.v Line: 8
+Warning (10222): Verilog HDL Parameter Declaration warning at uart_rx.v(9): Parameter Declaration in module "uart_rx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_rx.v Line: 9
+Warning (10222): Verilog HDL Parameter Declaration warning at uart_rx.v(10): Parameter Declaration in module "uart_rx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_rx.v Line: 10
+Warning (10222): Verilog HDL Parameter Declaration warning at uart_rx.v(11): Parameter Declaration in module "uart_rx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_rx.v Line: 11
+Warning (10222): Verilog HDL Parameter Declaration warning at uart_rx.v(14): Parameter Declaration in module "uart_rx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_rx.v Line: 14
+Warning (10222): Verilog HDL Parameter Declaration warning at uart_rx.v(17): Parameter Declaration in module "uart_rx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: /home/kuba/programing/git/Uart/uart_rx.v Line: 17
 Info (12127): Elaborating entity "uart" for the top level hierarchy
-Warning (10230): Verilog HDL assignment warning at uart.v(19): truncated value with size 8 to match size of target (2) File: /home/kuba/programing/git/Uart/uart.v Line: 19
-Info (12128): Elaborating entity "button_counter" for hierarchy "button_counter:bc" File: /home/kuba/programing/git/Uart/uart.v Line: 14
+Warning (10230): Verilog HDL assignment warning at uart.v(24): truncated value with size 8 to match size of target (4) File: /home/kuba/programing/git/Uart/uart.v Line: 24
+Info (12128): Elaborating entity "button_counter" for hierarchy "button_counter:bc" File: /home/kuba/programing/git/Uart/uart.v Line: 15
 Warning (10036): Verilog HDL or VHDL warning at button_counter.v(9): object "count_reset" assigned a value but never read File: /home/kuba/programing/git/Uart/button_counter.v Line: 9
 Warning (10230): Verilog HDL assignment warning at button_counter.v(16): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/button_counter.v Line: 16
 Warning (10230): Verilog HDL assignment warning at button_counter.v(21): truncated value with size 32 to match size of target (8) File: /home/kuba/programing/git/Uart/button_counter.v Line: 21
-Info (12128): Elaborating entity "send_button" for hierarchy "send_button:sb" File: /home/kuba/programing/git/Uart/uart.v Line: 15
+Info (12128): Elaborating entity "send_button" for hierarchy "send_button:sb" File: /home/kuba/programing/git/Uart/uart.v Line: 16
 Warning (10036): Verilog HDL or VHDL warning at send_button.v(8): object "start_transmit" assigned a value but never read File: /home/kuba/programing/git/Uart/output_files/send_button.v Line: 8
 Warning (10230): Verilog HDL assignment warning at send_button.v(17): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/output_files/send_button.v Line: 17
-Info (12128): Elaborating entity "uart_tx" for hierarchy "uart_tx:tx" File: /home/kuba/programing/git/Uart/uart.v Line: 16
-Warning (10230): Verilog HDL assignment warning at uart_tx.v(40): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/uart_tx.v Line: 40
-Warning (10230): Verilog HDL assignment warning at uart_tx.v(54): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/uart_tx.v Line: 54
-Warning (10230): Verilog HDL assignment warning at uart_tx.v(59): truncated value with size 32 to match size of target (4) File: /home/kuba/programing/git/Uart/uart_tx.v Line: 59
-Warning (10230): Verilog HDL assignment warning at uart_tx.v(74): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/uart_tx.v Line: 74
+Info (12128): Elaborating entity "uart_tx" for hierarchy "uart_tx:tx" File: /home/kuba/programing/git/Uart/uart.v Line: 17
+Warning (10230): Verilog HDL assignment warning at uart_tx.v(38): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/uart_tx.v Line: 38
+Warning (10230): Verilog HDL assignment warning at uart_tx.v(49): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/uart_tx.v Line: 49
+Warning (10230): Verilog HDL assignment warning at uart_tx.v(53): truncated value with size 32 to match size of target (4) File: /home/kuba/programing/git/Uart/uart_tx.v Line: 53
+Warning (10230): Verilog HDL assignment warning at uart_tx.v(66): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/uart_tx.v Line: 66
+Info (12128): Elaborating entity "uart_rx" for hierarchy "uart_rx:rx" File: /home/kuba/programing/git/Uart/uart.v Line: 21
+Warning (10230): Verilog HDL assignment warning at uart_rx.v(40): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/uart_rx.v Line: 40
+Warning (10230): Verilog HDL assignment warning at uart_rx.v(50): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/uart_rx.v Line: 50
+Warning (10230): Verilog HDL assignment warning at uart_rx.v(55): truncated value with size 32 to match size of target (4) File: /home/kuba/programing/git/Uart/uart_rx.v Line: 55
+Warning (10230): Verilog HDL assignment warning at uart_rx.v(65): truncated value with size 32 to match size of target (25) File: /home/kuba/programing/git/Uart/uart_rx.v Line: 65
 Info (286030): Timing-Driven Synthesis is running
-Info (17049): 3 registers lost all their fanouts during netlist optimizations.
+Info (17049): 6 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 197 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 3 input pins
-    Info (21059): Implemented 3 output pins
-    Info (21061): Implemented 191 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 17 warnings
-    Info: Peak virtual memory: 468 megabytes
-    Info: Processing ended: Wed May 15 21:06:32 2024
-    Info: Elapsed time: 00:00:07
-    Info: Total CPU time (on all processors): 00:00:21
+Info (21057): Implemented 261 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 4 input pins
+    Info (21059): Implemented 5 output pins
+    Info (21061): Implemented 252 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 27 warnings
+    Info: Peak virtual memory: 449 megabytes
+    Info: Processing ended: Wed May 15 22:16:30 2024
+    Info: Elapsed time: 00:00:04
+    Info: Total CPU time (on all processors): 00:00:15
 
 

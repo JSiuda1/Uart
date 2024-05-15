@@ -1,1 +1,2 @@
-Warning (10268): Verilog HDL information at uart_tx.v(106): always construct contains both blocking and non-blocking assignments File: /home/kuba/programing/git/Uart/uart_tx.v Line: 106
+Warning (10268): Verilog HDL information at send_button.v(12): always construct contains both blocking and non-blocking assignments File: /home/kuba/programing/git/Uart/output_files/send_button.v Line: 12
+Warning (10268): Verilog HDL information at button_counter.v(12): always construct contains both blocking and non-blocking assignments File: /home/kuba/programing/git/Uart/button_counter.v Line: 12

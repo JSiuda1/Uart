@@ -35,11 +35,8 @@ module uart_tx #(parameter baudrate = 115200)
 			START:
 			begin
 				output_tx <= 0;  // Set tx line LOW - start transmition
-				if (clk_count < clks_per_byte - 1)
-					begin
-					clk_count <= clk_count + 1;
-					end
-				else 
+				clk_count <= clk_count + 1;
+				if (clk_count == clks_per_byte)
 					begin
 					clk_count <= 0;
 					state <= DATA;
@@ -49,11 +46,8 @@ module uart_tx #(parameter baudrate = 115200)
 			DATA:
 			begin
 				output_tx <= data_byte[bit_index];
-				if (clk_count < clks_per_byte - 1)
-					begin
-					clk_count <= clk_count + 1;
-					end
-				else
+				clk_count <= clk_count + 1;
+				if (clk_count == clks_per_byte)
 					begin
 						clk_count <= 0;
 						bit_index <= bit_index + 1;
@@ -69,11 +63,8 @@ module uart_tx #(parameter baudrate = 115200)
 			END:
 			begin
 				output_tx <= 1;
-				if (clk_count < clks_per_byte - 1)
-					begin
-					clk_count <= clk_count + 1;
-					end
-				else 
+				clk_count <= clk_count + 1;
+				if (clk_count == clks_per_byte) 
 					begin
 						clk_count <= 0;
 						state <= IDLE;

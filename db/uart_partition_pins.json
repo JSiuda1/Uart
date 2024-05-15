@@ -16,7 +16,19 @@
 					"strict" : false
 				},
 				{
+					"name" : "led[2]",
+					"strict" : false
+				},
+				{
+					"name" : "led[3]",
+					"strict" : false
+				},
+				{
 					"name" : "clk",
+					"strict" : false
+				},
+				{
+					"name" : "rx_line",
 					"strict" : false
 				},
 				{
