@@ -1,5 +1,5 @@
 
-State Machine - |uart|tx_state
+State Machine - |uart|uart_tx:tx|tx_state
 Name tx_state.TX_END tx_state.TX_DATA tx_state.TX_START tx_state.TX_IDLE 
 tx_state.TX_IDLE 0 0 0 0 
 tx_state.TX_START 0 0 1 1 

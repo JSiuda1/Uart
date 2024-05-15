@@ -1,4 +1,13 @@
 |uart
+clk => clk.IN1
+data_ready => data_ready.IN1
+data_count => data_count.IN1
+output_tx << uart_tx:tx.port3
+led[0] << <GND>
+led[1] << <GND>
+
+
+|uart|uart_tx:tx
 clk => wait_debouncing.CLK
 clk => button_clk_count[0].CLK
 clk => button_clk_count[1].CLK

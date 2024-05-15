@@ -21,9 +21,9 @@ https://fpgasoftware.intel.com/eula.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 200 96)
+	(rect 16 16 200 128)
 	(text "uart" (rect 5 0 20 12)(font "Arial" ))
-	(text "inst" (rect 8 64 20 76)(font "Arial" ))
+	(text "inst" (rect 8 96 20 108)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -39,54 +39,33 @@ https://fpgasoftware.intel.com/eula.
 		(line (pt 0 48)(pt 16 48)(line_width 1))
 	)
 	(port
+		(pt 0 64)
+		(input)
+		(text "data_count" (rect 0 0 43 12)(font "Arial" ))
+		(text "data_count" (rect 21 59 64 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 1))
+	)
+	(port
 		(pt 184 32)
 		(output)
 		(text "output_tx" (rect 0 0 36 12)(font "Arial" ))
 		(text "output_tx" (rect 127 27 163 39)(font "Arial" ))
 		(line (pt 184 32)(pt 168 32)(line_width 1))
 	)
-	(parameter
-		"data_byte"
-		"01100001"
-		""
-		(type "PARAMETER_UNSIGNED_BIN")	)
-	(parameter
-		"TX_IDLE"
-		"00"
-		""
-		(type "PARAMETER_UNSIGNED_BIN")	)
-	(parameter
-		"TX_START"
-		"01"
-		""
-		(type "PARAMETER_UNSIGNED_BIN")	)
-	(parameter
-		"TX_DATA"
-		"10"
-		""
-		(type "PARAMETER_UNSIGNED_BIN")	)
-	(parameter
-		"TX_END"
-		"11"
-		""
-		(type "PARAMETER_UNSIGNED_BIN")	)
+	(port
+		(pt 184 48)
+		(output)
+		(text "led[1..0]" (rect 0 0 29 12)(font "Arial" ))
+		(text "led[1..0]" (rect 134 43 163 55)(font "Arial" ))
+		(line (pt 184 48)(pt 168 48)(line_width 3))
+	)
 	(parameter
 		"baudrate"
 		"115200"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"clk_freq"
-		"10000000"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"clks_per_byte"
-		""
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
-		(rectangle (rect 16 16 168 64)(line_width 1))
+		(rectangle (rect 16 16 168 96)(line_width 1))
 	)
 	(annotation_block (parameter)(rect 200 -64 300 16))
 )

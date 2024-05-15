@@ -1,14 +1,14 @@
-Fitter Status : Successful - Sat May 11 23:54:04 2024
+Fitter Status : Successful - Wed May 15 19:02:21 2024
 Quartus Prime Version : 23.1std.0 Build 991 11/28/2023 SC Lite Edition
 Revision Name : uart
 Top-level Entity Name : uart
 Family : MAX 10
 Device : 10M08DAF256C8GES
 Timing Models : Preliminary
-Total logic elements : 185 / 8,064 ( 2 % )
+Total logic elements : 184 / 8,064 ( 2 % )
     Total combinational functions : 184 / 8,064 ( 2 % )
-    Dedicated logic registers : 92 / 8,064 ( 1 % )
-Total registers : 92
+    Dedicated logic registers : 91 / 8,064 ( 1 % )
+Total registers : 91
 Total pins : 6 / 178 ( 3 % )
 Total virtual pins : 0
 Total memory bits : 0 / 387,072 ( 0 % )
